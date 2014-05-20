@@ -39,19 +39,6 @@ function get_input($upper = FALSE) {
 
 function sort_menu($items) {
     echo '(A)-Z, (Z)-A, (O)rder Entered, (R)everse Order Entered : ';
-//     $input = get_input(TRUE);
-//     if ($input == 'Z') {
-//             rsort($items);
-//         } elseif ($input == 'O') {
-//             ksort($items);
-//         } elseif ($input == 'R') {
-//             krsort($items);
-//         } elseif ($input == 'A') {
-//             sort($items);
-//         } 
-//     return $items;
-// }
-
     switch(get_input(true)) {
         case 'A':
             asort($items);
@@ -65,6 +52,8 @@ function sort_menu($items) {
         case 'R':
             krsort($items);
             break;
+    }
+    return $items;
 }
 
 // The loop!
@@ -85,7 +74,16 @@ do {
         // Ask for entry
         echo 'Enter item: ';
         // Add entry to list array
-        $items[] = get_input();
+        $item = get_input();
+        // ask the user if they want to add it to the
+        // beginning or end of the list. Default to end if no input is given
+        echo 'add to (B)eginning or (E)nd: ';
+        $input = get_input(TRUE);
+        if ($input == B){
+            array_unshift($items, $item);
+        } else {
+            array_push($items, $item);
+        }
     } elseif ($input == 'R') {
         // Remove which item?
         echo 'Enter item number to remove: ';
