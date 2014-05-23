@@ -62,7 +62,7 @@ do {
     echo list_items($items);
 
     // Show the menu options
-    echo '(N)ew item, (R)emove item, (S)ort (Q)uit : ';
+    echo '(N)ew item, (R)emove item, (O)pen file, (S)ort, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -92,6 +92,16 @@ do {
         // Remove from array
         unset($items[$key - 1]);
         $items = array_values($items);
+    } elseif ($input == 'O') {
+        // Ask for entry
+        echo 'Enter filepath: ';
+        // Add entry to list array
+        $filename = get_input();
+        $filesize  = filesize($filename);
+        $handle = fopen($filename, "r");
+        $todo_string = fread($handle, $filesize);
+        fclose($handle);
+        $items = explode("\n", $todo_string);
     } elseif ($input == 'S') {
         $items = sort_menu($items);
     }
